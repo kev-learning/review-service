@@ -1,4 +1,4 @@
-package microservices.core.review.service.controller;
+package com.microservices.core.review.service.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

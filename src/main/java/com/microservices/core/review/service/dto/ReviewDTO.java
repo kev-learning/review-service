@@ -1,4 +1,4 @@
-package microservices.core.review.service.dto;
+package com.microservices.core.review.service.dto;
 
 import lombok.Builder;
 

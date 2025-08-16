@@ -1,7 +1,7 @@
-package microservices.core.review.service.controller;
+package com.microservices.core.review.service.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import microservices.core.review.service.dto.ReviewDTO;
+import com.microservices.core.review.service.dto.ReviewDTO;
 import com.microservices.core.util.exceptions.InvalidInputException;
 import com.microservices.core.util.http.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;

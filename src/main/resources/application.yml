@@ -1,6 +1,17 @@
 spring:
   application:
     name: review-service
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+  datasource:
+    hikari:
+      initializationFailTimeout: 60000
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: user
+    password: pwd
 
 server:
   port: 7002
@@ -9,6 +20,8 @@ logging:
   level:
     root: INFO
     com.microservices: DEBUG
+
+spring.jpa.hibernate.ddl-auto: update
 
 ---
 spring:

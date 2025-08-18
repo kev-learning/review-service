@@ -11,7 +11,7 @@ import java.util.*;
 
 @Slf4j
 @RestController
-public class ReviewControllerImpl{
+public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;

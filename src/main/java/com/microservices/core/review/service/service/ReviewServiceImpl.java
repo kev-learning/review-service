@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService{
         review = reviewRepository.save(review);
 
         log.debug("Created new review: {}", review);
-        return reviewMapper.entityToDTO(review);
+        return reviewMapper.entityToDTO(review, serviceUtil.getAddress());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ReviewServiceImpl implements ReviewService{
         log.debug("Found reviews: {}", reviews);
 
         return Optional.ofNullable(reviews).orElse(Collections.emptyList())
-                .stream().map(reviewMapper::entityToDTO).toList();
+                .stream().map(review -> reviewMapper.entityToDTO(review, serviceUtil.getAddress())).toList();
     }
 
     @Override

@@ -43,8 +43,10 @@ class ReviewServiceImplTest {
     @Test
     void createReviewTest() {
         Mockito.when(reviewMapper.DTOToEntity(buildReviewDTO())).thenReturn(buildReview());
-        Mockito.when(reviewMapper.entityToDTO(buildReview())).thenReturn(buildReviewDTO());
+        Mockito.when(reviewMapper.entityToDTO(Mockito.eq(buildReview()), Mockito.anyString())).thenReturn(buildReviewDTO());
         Mockito.when(reviewRepository.save(Mockito.any(Review.class))).thenReturn(buildReview());
+
+        Mockito.when(serviceUtil.getAddress()).thenReturn("Address");
 
         ReviewDTO reviewDTO = reviewService.createReview(buildReviewDTO());
 
@@ -54,7 +56,9 @@ class ReviewServiceImplTest {
     @Test
     void getReviewsTest() {
         Mockito.when(reviewRepository.findByProductId(Mockito.anyLong())).thenReturn(Collections.singletonList(buildReview()));
-        Mockito.when(reviewMapper.entityToDTO(Mockito.any(Review.class))).thenReturn(buildReviewDTO());
+        Mockito.when(reviewMapper.entityToDTO(Mockito.eq(buildReview()), Mockito.anyString())).thenReturn(buildReviewDTO());
+
+        Mockito.when(serviceUtil.getAddress()).thenReturn("Address");
 
         List<ReviewDTO> reviewDTOS = reviewService.getReviews(COMMON_ID);
 
@@ -78,7 +82,7 @@ class ReviewServiceImplTest {
         assertNotNull(reviewDTOS);
         assertTrue(reviewDTOS.isEmpty());
 
-        Mockito.verify(reviewMapper, Mockito.never()).entityToDTO(Mockito.any(Review.class));
+        Mockito.verify(reviewMapper, Mockito.never()).entityToDTO(Mockito.any(Review.class), Mockito.anyString());
     }
 
     @Test

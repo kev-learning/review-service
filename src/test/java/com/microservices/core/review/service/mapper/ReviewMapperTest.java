@@ -24,14 +24,14 @@ class ReviewMapperTest {
         review.setContent("CONTENT");
         review.setSubject("SUBJECT");
 
-        ReviewDTO reviewDTO = reviewMapper.entityToDTO(review);
+        ReviewDTO reviewDTO = reviewMapper.entityToDTO(review, "Address");
 
         assertEquals(review.getReviewId(), reviewDTO.reviewId());
         assertEquals(review.getProductId(), reviewDTO.productId());
         assertEquals(review.getAuthor(), reviewDTO.author());
         assertEquals(review.getSubject(), reviewDTO.subject());
         assertEquals(review.getContent(), reviewDTO.content());
-        assertNull(reviewDTO.serviceAddress());
+        assertEquals("Address", reviewDTO.serviceAddress());
     }
 
     @Test

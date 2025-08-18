@@ -37,7 +37,7 @@ dependencies {
 	implementation 'com.microservices.core:microservice-util:1.0.0'
 	implementation "org.mapstruct:mapstruct:${mapStructVersion}"
 
-	runtimeOnly "com.h2database:h2:2.3.232"
+	testRuntimeOnly "com.h2database:h2:2.3.232"
 
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"

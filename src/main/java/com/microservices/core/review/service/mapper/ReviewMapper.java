@@ -10,9 +10,9 @@ import org.mapstruct.Mappings;
 public interface ReviewMapper {
 
     @Mappings({
-            @Mapping(target = "serviceAddress", ignore = true)
+            @Mapping(target = "serviceAddress", source = "address")
     })
-    ReviewDTO entityToDTO(Review review);
+    ReviewDTO entityToDTO(Review review, String address);
 
     @Mappings({
             @Mapping(target = "id", ignore = true),

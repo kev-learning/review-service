@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: review-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+  datasource:
+    hikari:
+      initializationFailTimeout: 60000
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: user
+    password: pwd
+  cloud:
+    stream:
+      defaultBinder: kafka
+      default.contentType: application/json
+      bindings:
+        consumeEvent-in-0:
+          destination: reviews
+          group: reviewGroup
+          maxAttempts: 3
+          backOffInitialInterval: 500
+          backOffMaxInterval: 1000
+          backOffMultiplier: 2.0
+      kafka:
+        enableDlq: true
+        binder:
+          brokers: 127.0.0.1
+          defaultBrokerPort: 9092
+
+server:
+  port: 7002
+
+logging:
+  level:
+    root: INFO
+    com.microservices: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+spring.jpa.hibernate.ddl-auto: update
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:mysql://mysql/review-db
+    driverClassName: com.mysql.cj.jdbc.Driver
+  kafka:
+    bootstrap-servers: kafka:9092
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka
+          defaultBrokerPort: 9092
+          replication-factor: 1
+
+server:
+  port: 8080
+
+app:
+  eureka-server: eureka
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.eureka-username}:${app.eureka-password}@${app.eureka-server}:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5

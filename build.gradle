@@ -15,6 +15,10 @@ java {
 	}
 }
 
+springBoot  {
+	buildInfo()
+}
+
 jar {
 	enabled = false
 }
@@ -47,6 +51,11 @@ dependencies {
 	implementation "org.mapstruct:mapstruct:${mapStructVersion}"
 	implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+	implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+	implementation 'net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.0'
 
 	testRuntimeOnly "com.h2database:h2:2.3.232"
 

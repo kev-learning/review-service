@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 
-import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -35,14 +33,13 @@ public class ReviewMessageProcessorConfig {
             switch (event.getEventType()) {
                 case CREATE -> {
                     ReviewDTO reviewDTO = event.getData();
-                    log.debug("Creating product: {}", reviewDTO);
+                    log.debug("Creating review: {}", reviewDTO);
                     Mono.fromCallable(() -> Optional.ofNullable(reviewDTO)
                             .map(reviewService::createReview)).log(log.getName(), Level.FINE).subscribeOn(scheduler).block();
-
                 }
                 case DELETE -> {
                     Long productId = event.getKey();
-                    log.debug("Delete product using ID: {}", productId);
+                    log.debug("Delete review using ID: {}", productId);
                     Mono.fromRunnable(() -> reviewService.deleteReviews(productId)).subscribeOn(scheduler).then().block();
                 }
                 default -> {
